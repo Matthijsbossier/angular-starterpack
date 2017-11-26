@@ -1,16 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+// import { Component, OnInit } from '@angular/core';
+
+// @Component({
+//   selector: 'app-header',
+//   templateUrl: './header.component.html'
+// })
+// export class HeaderComponent implements OnInit {
+
+//   title = 'Angular2 Starter';
+
+//   constructor() { }
+
+//   ngOnInit() {
+//   }
+
+// }
+
+import {Component, EventEmitter, Output  
+} from '@angular/core';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html'
+    selector: 'app-header',
+    templateUrl: './header.component.html' 
+
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent{
+@Output() featureSelected = new EventEmitter<string>();
 
-  title = 'Angular2 Starter';
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+onSelect(feature: string)  {
+    this.featureSelected.emit(feature);
+    }
 }

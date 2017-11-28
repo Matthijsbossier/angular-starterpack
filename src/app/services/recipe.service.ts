@@ -60,18 +60,47 @@ export class RecipeService {
     this.slService.addIngredients(ingredients);
   }
 
+//   addRecipe(recipe: Recipe) {
+//       this.recipes.push(recipe)
+//       this.recipesChanged.next(this.recipes.slice());
+//   }
+
   addRecipe(recipe: Recipe) {
-    this.recipes.push(recipe);
+    console.log('addRecipe');
+    console.dir(recipe);
+    this.http.post(environment.serverUrl + '/createrecipe/', recipe)
+    .map(response => response.json() as Recipe)
+    .subscribe(result => {
+    this.recipes.push(result as Recipe);
     this.recipesChanged.next(this.recipes.slice());
+    }) 
+    
   }
 
   updateRecipe(index: number, newRecipe: Recipe) {
-    this.recipes[index] = newRecipe;
-    this.recipesChanged.next(this.recipes.slice());
-  }
+    console.log('updateRecipe');
+    console.dir(newRecipe);
+    this.http.put(environment.serverUrl + '/editrecipe/', newRecipe)
+    .map(response => response.json() as Recipe)
+    .subscribe(result => {
+        this.recipes[index] = newRecipe;
+        this.recipes.push(newRecipe);
+        this.recipesChanged.next(this.recipes.slice());
 
+    })
+    //this.recipes[index] = newRecipe;
+    //this.recipesChanged.next(this.recipes.slice());
+  }
+//
   deleteRecipe(index: number) {
+    console.log('deleteRecipe');
+    this.http.delete(environment.serverUrl + '/deleterecipe/')
+    .map(response => response.json() as Recipe)
+    .subscribe(result => {
     this.recipes.splice(index, 1);
     this.recipesChanged.next(this.recipes.slice());
+    });
+    // this.recipes.splice(index, 1);
+    // this.recipesChanged.next(this.recipes.slice());
   }
 }

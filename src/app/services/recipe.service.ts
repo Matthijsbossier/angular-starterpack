@@ -68,7 +68,7 @@ export class RecipeService {
   addRecipe(recipe: Recipe) {
     console.log('addRecipe');
     console.dir(recipe);
-    this.http.post(environment.serverUrl + '/', recipe)
+    this.http.post(environment.serverUrl + '/createrecipe/', recipe)
     .map(response => response.json() as Recipe)
     .subscribe(result => {
     this.recipes.push(result as Recipe);

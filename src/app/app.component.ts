@@ -1,18 +1,34 @@
+// import { Component } from '@angular/core';
+
+// @Component({
+//   selector: 'app-root',
+//   templateUrl: './app.component.html'
+// })
+// export class AppComponent {
+//     loadedFeature = 'recipe';
+
+
+//     onNavigate(feature: string) {
+//       this.loadedFeature = feature;
+//     }
+
+//   constructor(
+//   ) { }
+
+// }
+
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    loadedFeature = 'recipe';
+  loadedFeature = 'recipe';
 
-
-    onNavigate(feature: string) {
-      this.loadedFeature = feature;
-    }
-
-  constructor(
-  ) { }
-
+  onNavigate(feature: string) {
+    this.loadedFeature = feature;
+  }
 }
+

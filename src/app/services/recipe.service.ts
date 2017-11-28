@@ -60,9 +60,21 @@ export class RecipeService {
     this.slService.addIngredients(ingredients);
   }
 
+//   addRecipe(recipe: Recipe) {
+//       this.recipes.push(recipe)
+//       this.recipesChanged.next(this.recipes.slice());
+//   }
+
   addRecipe(recipe: Recipe) {
-    this.recipes.push(recipe);
+    console.log('addRecipe');
+    console.dir(recipe);
+    this.http.post(environment.serverUrl + '/', recipe)
+    .map(response => response.json() as Recipe)
+    .subscribe(result => {
+    this.recipes.push(result as Recipe);
     this.recipesChanged.next(this.recipes.slice());
+    }) 
+    
   }
 
   updateRecipe(index: number, newRecipe: Recipe) {

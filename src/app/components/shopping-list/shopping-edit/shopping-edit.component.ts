@@ -9,6 +9,7 @@ import { ShoppingListService} from '../shopping-list.services';
   encapsulation: ViewEncapsulation.None
 })
 export class ShoppingEditComponent implements OnInit {
+//@ViewChild('idInput') idInputRef: ElementRef;
 @ViewChild('nameInput') nameInputRef: ElementRef;
 @ViewChild('amountInput') amountInputRef: ElementRef;
 
@@ -18,6 +19,7 @@ export class ShoppingEditComponent implements OnInit {
   }
 
   onAddItem(){
+    //const ingId = this.idInputRef.nativeElement.value;
     const ingName = this.nameInputRef.nativeElement.value;
     const ingAmount = this.amountInputRef.nativeElement.value;
     const newIngredient = new Ingredient(ingName, ingAmount);

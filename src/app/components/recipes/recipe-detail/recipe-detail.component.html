@@ -90,7 +90,7 @@
     </ul>
   </div>
 </div>-->
-<div class="row">
+<div *ngIf="recipe" class="row">
   <div class="col-xs-12">
     <img
       [src]="recipe?.imagePath"
@@ -137,4 +137,7 @@
       </li>
     </ul>
   </div>
+</div>
+<div *ngIf="!recipe">
+  Er is nog geen recipe.
 </div>

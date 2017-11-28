@@ -1,77 +1,64 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { Http, Headers, URLSearchParams } from '@angular/http';
-import { environment } from '../../environments/environment';
-import { Router, ActivatedRoute } from '@angular/router';
-import 'rxjs/add/operator/toPromise';
-import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import { Http } from '@angular/http';
 import { Recipe } from '../models/recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
-import { Subject } from "rxjs/Subject";
-
+import { ShoppingListService } from '../components/shopping-list/shopping-list.services';
+import { environment } from '../../environments/environment';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class RecipeService {
-    recipeSelected = new EventEmitter<Recipe>();
-    recipesChanged = new Subject<Recipe[]>();
+  recipesChanged = new Subject<Recipe[]>();
 
-  private headers = new Headers({ 'Content-Type': 'application/json' });
-  private serverUrl = environment.serverUrl + '/recipes'; // URL to web api
-  private ingredientUrl = environment.serverUrl + '/shopping-list';
-  private recipes: Recipe[] = [];
+  private recipes: Recipe[] = [
+    // new Recipe(
+    //     'Tasty Schnitzel',
+    //     'A super-tasty Schnitzel - just awesome!',
+    //     'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
+    //     [
+    //       new Ingredient('Meat', 1),
+    //       new Ingredient('French Fries', 20)
+    //     ]),
+    // new Recipe('Big Fat Burger',
+    //     'What else you need to say?',
+    //     'https://upload.wikimedia.org/wikipedia/commons/b/be/Burger_King_Angus_Bacon_%26_Cheese_Steak_Burger.jpg',
+    //     [
+    //       new Ingredient('Buns', 2),
+    //       new Ingredient('Meat', 1)
+    //     ])
+  ];
 
-  //
-  //
-  //
-  constructor(private http: Http) { }
-
-  //
-  //
-  //
-  public getRecipes(): Promise<Recipe[]> {
-    console.log('items ophalen van server');
-    return this.http.get(this.serverUrl, { headers: this.headers })
-      .toPromise()
-      .then(response => {
-        console.dir(response.json());
-        return response.json() as Recipe[];
-      })
-      .catch(error => {
-        return this.handleError(error);
-      });
+  constructor(private slService: ShoppingListService, private http: Http) {
+    this.readRecipes();
   }
 
-//   getRecipe(index: string) {
-//     return this.recipes[index];
-//   }
-
-  public getRecipe(id: string): Promise<Recipe[]> {
-    console.log('items ophalen van server');
-    return this.http.get(this.serverUrl + '/' + id, { headers: this.headers })
-      .toPromise()
-      .then(response => {
-        console.dir(response.json());
-        return response.json() as Recipe[];
-      })
-      .catch(error => {
-        return this.handleError(error);
-      });
+  public readRecipes() {
+    this.http.get(environment.serverUrl + '/recipes')
+        .map((response) => {
+          console.log("map");
+          const recipes = response.json() as Recipe[];
+          return recipes;
+        })
+        .subscribe((recipes) => {
+          console.log('subscribe');
+          this.recipes = recipes as Recipe[];
+          this.recipesChanged.next(this.recipes.slice());
+        });
   }
 
-    // public getRecipe(id: string)
 
-    public addIngredientsToShoppingList(recipe: Recipe) {
-    console.log('items toevoegen');
-    recipe.ingredients.forEach(ingredient => {
-    return this.http.post(this.ingredientUrl, { name: ingredient.name, amount: ingredient.amount })
-      .toPromise()
-      .then(response => {
-        console.log("ingredient(s) toegevoegd")
-      })
-      .catch(error => {
-        return this.handleError(error);
-      });
-    });
-}
+  getRecipes() {
+    return this.recipes.slice();
+  }
+
+  getRecipe(index: number) {
+    return this.recipes[index];
+  }
+
+  addIngredientsToShoppingList(ingredients: Ingredient[]) {
+    this.slService.addIngredients(ingredients);
+  }
 
   addRecipe(recipe: Recipe) {
     this.recipes.push(recipe);
@@ -87,21 +74,4 @@ export class RecipeService {
     this.recipes.splice(index, 1);
     this.recipesChanged.next(this.recipes.slice());
   }
-
-// voorbeeld van addrecipe
-// this.http.post(this.serverUrl + '/recipes', recipe)
-// .map(response => response.json() as Recipe)
-// .subscribe(result => {
-//     this.recipes.push(result as Recipe);
-//     this.recipeChanged.next(this.recipes.slice());
-
-// });
-  //
-  //
-  //
-  private handleError(error: any): Promise<any> {
-    console.log('handleError');
-    return Promise.reject(error.message || error);
-  }
-
 }

@@ -19,6 +19,8 @@ import { ShoppingListComponent } from "./components/shopping-list/shopping-list.
 import { ShoppingEditComponent } from "./components/shopping-list/shopping-edit/shopping-edit.component";
 import { RecipeService } from "./services/recipe.service";
 import { HttpClientModule, HttpClient} from '@angular/common/http';
+import { RecipeStartComponent } from "./components/recipes/recipe-start/recipe-start.component";
+import { RecipeEditComponent } from "./components/recipes/recipe-edit/recipe-edit.component";
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { HttpClientModule, HttpClient} from '@angular/common/http';
     RecipeItemComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
-    DropdownDirective
+    DropdownDirective,
+    RecipeStartComponent,
+    RecipeEditComponent
     
   ],
   imports: [

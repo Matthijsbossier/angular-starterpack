@@ -10,21 +10,21 @@ export class RecipeService {
 
 
  private recipes: Recipe[] = [
-    new Recipe('A Test Recipe',
-     'This is a little test', 
-     'https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/frying-pan-pizza-easy-recipe-collection.jpg',
-     [
-         new Ingredient('Big Mac', 1),
-         new Ingredient('McChicken', 2)
-     ]),
-    new Recipe('Another Test Recipe', 
-    'This is a little test', 
-    'https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/frying-pan-pizza-easy-recipe-collection.jpg',
-    [
-        new Ingredient('Hamburger', 5),
-         new Ingredient('Cheeseburger', 5)
-    ])
-//    new Recipe('A Test Recipe', 'This is a little test', 'https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/frying-pan-pizza-easy-recipe-collection.jpg')
+    // new Recipe('A Test Recipe',
+    //  'This is a little test', 
+    //  'https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/frying-pan-pizza-easy-recipe-collection.jpg',
+    //  [
+    //      new Ingredient('Big Mac', 1),
+    //      new Ingredient('McChicken', 2)
+    //  ]),
+    // new Recipe('Another Test Recipe', 
+    // 'This is a little test', 
+    // 'https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/frying-pan-pizza-easy-recipe-collection.jpg',
+    // [
+    //     new Ingredient('Hamburger', 5),
+    //      new Ingredient('Cheeseburger', 5)
+//     ])
+// //    new Recipe('A Test Recipe', 'This is a little test', 'https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/frying-pan-pizza-easy-recipe-collection.jpg')
 
   ];
 
